@@ -55,7 +55,7 @@ class Scraper():
                                     database.insert_players(player2_data)
                             
                             database.insert_matches(match_data) 
-
+            time.sleep(600)
             # players_count = len(database.get_players())
             
             # if players_count-len(players) < 200-match_list_counter:
