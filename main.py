@@ -13,8 +13,8 @@ def main():
         for each in players:
             puuid = each['puuid']
             print(f"Getting matches for player {puuid}")
-            matches, rate_limit = api.get_player_matches(puuid)
-
+            matches = api.get_player_matches(puuid)
+            print(matches)
             for matchid in matches:
                 print(matchid)
                 if not database.match_exists(matchid):

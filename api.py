@@ -15,14 +15,13 @@ class APIConnection():
 
         r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{uuid}', headers=headers)
 
-        headers = r.headers 
-        headers = headers
+        headers = r.headers
 
         rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        return [r, rate_limit] 
+        return r
 
     def get_match_data(self, matchid):
         headers = {
@@ -38,4 +37,4 @@ class APIConnection():
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        return [r, rate_limit] 
+        return r
