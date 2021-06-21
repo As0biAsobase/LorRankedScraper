@@ -17,6 +17,7 @@ class APIConnection():
 
         headers = r.headers
         content = r.text
+        content = json.loads(content)
 
         # rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
@@ -33,6 +34,7 @@ class APIConnection():
         
         headers = r.headers 
         content = r.text
+        content = json.loads(content)
 
         # rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
