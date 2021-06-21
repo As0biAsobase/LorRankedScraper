@@ -33,7 +33,7 @@ def main():
                         
                         database.insert_matches(match_data)
 
-        time.sleep(60)
+        time.sleep(600)
 
 if __name__ == "__main__":
     main()
