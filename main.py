@@ -59,10 +59,10 @@ class Scraper():
 
                 if offset > 600:
                     offset = 0
-                    
+
                 difference = timer() - last_iteration
                 print(f"Rate limit reached, waiting for {difference:.0f} secs")
-                time.sleep(difference)
+                time.sleep(3600 - difference)
                 last_iteration = timer()
                 match_list_counter = 0
                 
