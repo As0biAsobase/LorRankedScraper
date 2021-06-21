@@ -49,8 +49,11 @@ class Scraper():
             self.start = timer()
         else:
             if self.requests >= 200:
-                time.sleep(difference)
                 print(f"Rate limit reached, waiting for {difference:.0f} secs")
+                time.sleep(difference)
+                time.start = timer()
+                self.requests = 0
+                
 
 
 if __name__ == "__main__":
