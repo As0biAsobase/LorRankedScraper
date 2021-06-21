@@ -7,6 +7,7 @@ class APIConnection():
     def __init__(self):
         load_dotenv(find_dotenv())
         self.key = os.getenv("RIOT_API_KEY")
+        print(self.key)
 
     def get_player_matches(self, uuid):
         headers = {
