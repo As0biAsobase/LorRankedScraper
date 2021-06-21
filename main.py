@@ -21,13 +21,13 @@ class Scraper():
                 puuid = each['puuid']
                 print(f"Getting matches for player {puuid}")
                 matches = api.get_player_matches(puuid)
-                check_rate_limit()
+                self.check_rate_limit()
 
                 for matchid in matches:
                     if not database.match_exists(matchid):
                         print(f"Match {matchid} does not exist. Adding...")
                         match_data, status_code = api.get_match_data(matchid)
-                        check_rate_limit()
+                        self.check_rate_limit()
 
                         if status_code == 200:
                             player1, player2 = match_data["metadata"]["participants"]
