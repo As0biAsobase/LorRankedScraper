@@ -13,9 +13,9 @@ def main():
         for each in players:
             puuid = each['puuid']
             print(f"Getting matches for player {puuid}")
-            matches = api.get_player_matches(puuid)
+            matches, rate_limit = api.get_player_matches(puuid)
 
-            for matchid, rate_limit in matches:
+            for matchid in matches:
                 if not database.match_exists(matchid):
                     print(f"Match {matchid} does not exist. Adding...")
                     match = match.json() 
@@ -24,7 +24,7 @@ def main():
                     database.insert_players(player1)
                     database.insert_players(playr2)
 
-                    match_data = api.get_match_data(matchid)
+                    match_data, rate_limit = api.get_match_data(matchid)
                     database.insert_matches(match_data.json())
 
         time.sleep(60)
