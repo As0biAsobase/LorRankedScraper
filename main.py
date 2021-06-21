@@ -9,7 +9,7 @@ def main():
         players = database.get_players() 
         
         for each in players:
-            print(f"Getting matches for player {each.puuid}")
+            print(f"Getting matches for player {each["puuid"]}")
             matches = api.get_player_matches()
 
             for matchid, rate_limit in matches:
