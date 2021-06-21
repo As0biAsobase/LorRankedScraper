@@ -39,7 +39,7 @@ class Scraper():
                         if status_code == 200:
                             player1, player2 = match_data["metadata"]["participants"]
                             
-                            if not database.player_exists(player1)
+                            if not database.player_exists(player1):
                                 print(f"Never met player {player1} before, adding him...")
                                 player1_data, code = api.get_player_data(player1)
                                 self.check_rate_limit()
