@@ -13,14 +13,20 @@ class Scraper():
     def start_scraping(self):
         database = DBConnection()
         api = APIConnection()
-        
+
+        offset = 0
+        last_iteration = timer()
+        match_list_counter = 0
+
         while True:
             players = database.get_players() 
+            players = players[offset::]
             
             for each in players:
                 puuid = each['puuid']
                 print(f"Getting matches for player {puuid}")
                 matches = api.get_player_matches(puuid)
+                match_list_counter += 1
                 self.check_rate_limit()
 
 
@@ -39,7 +45,28 @@ class Scraper():
                             database.insert_players(player1_data)
                             database.insert_players(player2_data)
                             
-                            database.insert_matches(match_data)
+                            database.insert_matches(match_data) 
+
+            players_count = len(database.get_players())
+            
+            if players_count-len(players) < 200-match_list_counter:
+                offset = len(players)
+            else:
+                if offset + 200 > players_count:
+                    offset = len(players)
+                else:
+                    offset += 200
+
+                if offset > 600:
+                    offset = 0
+                    
+                difference = timer() - last_iteration
+                print(f"Rate limit reached, waiting for {difference:.0f} secs")
+                time.sleep(difference)
+                last_iteration = timer()
+                match_list_counter = 0
+                
+
 
     def check_rate_limit(self):
         self.requests += 1
