@@ -15,10 +15,11 @@ class APIConnection():
 
         r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{puuid}/ids', headers=headers)
 
-        print(r)
+        
         headers = r.headers
         content = r.text
         content = json.loads(content)
+        print(headers)
 
         # rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
