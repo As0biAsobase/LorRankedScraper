@@ -20,8 +20,8 @@ class APIConnection():
         print(headers)
 
         rate_limit = False
-        if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
-            rate_limit = True
+        # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
+        #     rate_limit = True
 
         r = r.content
 
@@ -38,8 +38,8 @@ class APIConnection():
         
 
         rate_limit = False
-        if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
-            rate_limit = True
+        # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
+        #     rate_limit = True
 
         r = r.content
 
