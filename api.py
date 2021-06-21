@@ -13,7 +13,7 @@ class APIConnection():
             "X-Riot-Token": self.key
         }
 
-        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{uuid}')
+        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{uuid}', headers=headers)
 
         headers = r.headers 
         headers = headers
@@ -22,8 +22,6 @@ class APIConnection():
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        r = r.content
-
         return [r, rate_limit] 
 
     def get_match_data(self, matchid):
@@ -31,7 +29,7 @@ class APIConnection():
             "X-Riot-Token": self.key
         }
 
-        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/{matchid}')
+        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/{matchid}', headers=headers)
         
         headers = r.headers 
         
@@ -39,7 +37,5 @@ class APIConnection():
         rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
-
-        r = r.content
 
         return [r, rate_limit] 
