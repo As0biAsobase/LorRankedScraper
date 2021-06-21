@@ -20,7 +20,7 @@ def main():
                 if not database.match_exists(matchid):
                     print(f"Match {matchid} does not exist. Adding...")
                     match_data = api.get_match_data(matchid)
-                    match_data = match_data.json()
+                
                     print(match_data)
                     player1, player2 = match_data["metadata"]["participants"]
 
