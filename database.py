@@ -37,4 +37,4 @@ class DBConnection:
         return exists 
 
     def insert_matches(self, match):
-        self.client['natum-perdere']['PlayersyRiotID'].insert({match})
+        self.client['natum-perdere']['PlayersyRiotID'].insert_one(match)
