@@ -21,7 +21,7 @@ class APIConnection():
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        return r
+        return r.content
 
     def get_match_data(self, matchid):
         headers = {
@@ -37,4 +37,4 @@ class APIConnection():
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        return r
+        return r.content
