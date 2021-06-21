@@ -4,6 +4,7 @@ from api import APIConnection
 import json
 from timeit import default_timer as timer
 import time
+import random
 
 class Scraper():
     def __init__(self):
@@ -21,7 +22,7 @@ class Scraper():
 
         while True:
             players = database.get_players() 
-            players = players[offset::]
+            random.shuffle(players)
             
             for each in players:
                 puuid = each['puuid']
