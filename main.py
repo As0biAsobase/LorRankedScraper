@@ -9,14 +9,15 @@ class Scraper():
     def __init__(self):
         self.start = timer()
         self.requests = 0
+        self.match_list_counter = 0
+        self.match_data_counter = 0
+        self.hourly_clock = timer()
 
     def start_scraping(self):
         database = DBConnection()
         api = APIConnection()
 
         offset = 0
-        last_iteration = timer()
-        match_list_counter = 0
 
         while True:
             players = database.get_players() 
@@ -26,7 +27,7 @@ class Scraper():
                 puuid = each['puuid']
                 print(f"Getting matches for player {puuid}")
                 matches = api.get_player_matches(puuid)
-                match_list_counter += 1
+                self.match_list_counter += 1
                 self.check_rate_limit()
 
 
@@ -34,6 +35,7 @@ class Scraper():
                     if not database.match_exists(matchid):
                         print(f"Match {matchid} does not exist. Adding...")
                         match_data, status_code = api.get_match_data(matchid)
+                        self.match_data_counter += 1
                         self.check_rate_limit()
 
                         if status_code == 200:
@@ -54,24 +56,24 @@ class Scraper():
                             
                             database.insert_matches(match_data) 
 
-            players_count = len(database.get_players())
+            # players_count = len(database.get_players())
             
-            if players_count-len(players) < 200-match_list_counter:
-                offset = len(players)
-            else:
-                if offset + 200 > players_count:
-                    offset = len(players)
-                else:
-                    offset += 200
+            # if players_count-len(players) < 200-match_list_counter:
+            #     offset = len(players)
+            # else:
+            #     if offset + 200 > players_count:
+            #         offset = len(players)
+            #     else:
+            #         offset += 200
 
-                if offset > 600:
-                    offset = 0
+            #     if offset > 600:
+            #         offset = 0
 
-                difference = timer() - last_iteration
-                print(f"Rate limit reached, waiting for {difference:.0f} secs")
-                time.sleep(3600 - difference)
-                last_iteration = timer()
-                match_list_counter = 0
+            #     difference = timer() - last_iteration
+            #     print(f"Rate limit reached, waiting for {difference:.0f} secs")
+            #     time.sleep(3600 - difference)
+            #     last_iteration = timer()
+            #     match_list_counter = 0
                 
 
 
@@ -79,15 +81,24 @@ class Scraper():
         self.requests += 1
 
         difference = timer() - self.start
-        if difference > 120:
-            self.requests = 0
+        if self.match_list_counter == 200 or self.match_data_counter == 100:
+            difference = 36000 - (timer() - self.hourly_clock):
+            print(f"Rate limit reached, waiting for {difference:.0f} secs")
+            time.sleep(difference)
             self.start = timer()
+            self.requests = 0
+            self.match_data_counter = 0 
+            self.match_list_counter = 0
         else:
-            if self.requests >= 200:
-                print(f"Rate limit reached, waiting for {difference:.0f} secs")
-                time.sleep(difference)
-                time.start = timer()
+            if difference > 120:
                 self.requests = 0
+                self.start = timer()
+            else:
+                if self.requests >= 200:
+                    print(f"Rate limit reached, waiting for {difference:.0f} secs")
+                    time.sleep(difference)
+                    self.start = timer()
+                    self.requests = 0
                 
 
 
