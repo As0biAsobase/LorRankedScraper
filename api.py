@@ -35,12 +35,13 @@ class APIConnection():
         headers = r.headers 
         content = r.text
         content = json.loads(content)
+        status_code = r.status_code
 
         # rate_limit = False
         # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
         #     rate_limit = True
 
-        return content
+        return [content, status_code]
 
     def get_player_data(self, puuid):
         headers = {
