@@ -16,10 +16,11 @@ def main():
             matches, rate_limit = api.get_player_matches(puuid)
 
             for matchid in matches:
+                print(matchid)
                 if not database.match_exists(matchid):
                     print(f"Match {matchid} does not exist. Adding...")
                     match_data, rate_limit = api.get_match_data(matchid)
-                    
+                    match_data = match_data.json()
                     print(match_data)
                     player1, player2 = match_data["metadata"]["participants"]
 
