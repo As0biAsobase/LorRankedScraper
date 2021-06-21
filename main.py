@@ -43,7 +43,9 @@ class Scraper():
                             player2_data = api.get_player_data(player2)
 
                             database.insert_players(player1_data)
+                            print(player2_data)
                             database.insert_players(player2_data)
+
                             
                             database.insert_matches(match_data) 
 
