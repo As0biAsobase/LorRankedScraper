@@ -25,10 +25,10 @@ def main():
                     player1, player2 = match_data["metadata"]["participants"]
 
                     database.insert_players(player1)
-                    database.insert_players(playr2)
+                    database.insert_players(player2)
 
                     
-                    database.insert_matches(match_data.json())
+                    database.insert_matches(match_data)
 
         time.sleep(60)
 
