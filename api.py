@@ -7,14 +7,13 @@ class APIConnection():
     def __init__(self):
         load_dotenv(find_dotenv())
         self.key = os.getenv("RIOT_API_KEY")
-        print(self.key)
 
     def get_player_matches(self, uuid):
         headers = {
             "X-Riot-Token": self.key
         }
 
-        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{uuid}', headers=headers)
+        r = requests.get(f'https://europe.api.riotgames.com/lor/match/v1/matches/by-puuid/{uuid}/ids', headers=headers)
 
         headers = r.headers
 
