@@ -39,13 +39,18 @@ class Scraper():
                         if status_code == 200:
                             player1, player2 = match_data["metadata"]["participants"]
                             
-                            player1_data = api.get_player_data(player1)
-                            player2_data = api.get_player_data(player2)
-
-                            database.insert_players(player1_data)
-                            print(player2_data)
-                            database.insert_players(player2_data)
-
+                            if not database.player_exists(player1)
+                                print(f"Never met player {player1} before, adding him...")
+                                player1_data, code = api.get_player_data(player1)
+                                self.check_rate_limit()
+                                if code == 200:
+                                    database.insert_players(player1_data)
+                            if not database.player_exists(player2):
+                                print(f"Never met player {player2} before, adding him...")
+                                player2_data, code = api.get_player_data(player2)
+                                self.check_rate_limit()
+                                if code == 200:
+                                    database.insert_players(player2_data)
                             
                             database.insert_matches(match_data) 
 
