@@ -23,10 +23,12 @@ def main():
                 
                     print(match_data)
                     player1, player2 = match_data["metadata"]["participants"]
+                    
+                    player1_data = api.get_player_data(player1)
+                    player2_data = api.get_player_data(player2)
 
-                    database.insert_players(player1)
-                    database.insert_players(player2)
-
+                    database.insert_players(player1_data)
+                    database.insert_players(player2_data)
                     
                     database.insert_matches(match_data)
 

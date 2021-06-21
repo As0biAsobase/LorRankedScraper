@@ -24,9 +24,9 @@ class DBConnection:
             exists = False 
         return exists 
 
-    def insert_players(self, puuid):
-        if not self.player_exists(puuid):
-            self.client['natum-perdere']['PlayersyRiotID'].insert({"puuid" : puuid})
+    def insert_players(self, player_data):
+        if not self.player_exists(player_data["puuid"]):
+            self.client['natum-perdere']['PlayersyRiotID'].insert_one(player_data)
 
     def match_exists(self, matchid):
         result = self.client['natum-perdere']['LorMatches'].find({ "metadata.match_id" : matchid })

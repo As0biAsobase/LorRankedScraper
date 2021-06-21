@@ -41,3 +41,20 @@ class APIConnection():
         #     rate_limit = True
 
         return content
+
+    def get_player_data(self, puuid):
+        headers = {
+            "X-Riot-Token": self.key
+        }
+
+        r = requests.get(f'https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}', headers=headers)
+
+        headers = r.headers
+        content = r.text
+        content = json.loads(content)
+
+        # rate_limit = False
+        # if headers["X-Method-Rate-Limit"].split(":")[0] <= headers["X-Method-Rate-Limit-Count"].split(":")[0]:
+        #     rate_limit = True
+
+        return content
