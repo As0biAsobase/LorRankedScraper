@@ -82,7 +82,7 @@ class Scraper():
 
         difference = timer() - self.start
         if self.match_list_counter == 200 or self.match_data_counter == 100:
-            difference = 36000 - (timer() - self.hourly_clock):
+            difference = 36000 - (timer() - self.hourly_clock)
             print(f"Rate limit reached, waiting for {difference:.0f} secs")
             time.sleep(difference)
             self.start = timer()
