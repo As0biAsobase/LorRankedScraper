@@ -1,10 +1,12 @@
-from database import DBConnection as database 
-from api import APIConnection as api 
+from database import DBConnection
+from api import APIConnection
 
 import json
 import time
 
 def main():
+    database = DBConnection()
+    api = APIConnection()
     while True:
         players = database.get_players() 
         
