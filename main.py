@@ -25,7 +25,6 @@ class Scraper():
 
 
                 for matchid in matches:
-                    print(matchid)
                     if not database.match_exists(matchid):
                         print(f"Match {matchid} does not exist. Adding...")
                         match_data, status_code = api.get_match_data(matchid)
