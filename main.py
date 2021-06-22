@@ -1,5 +1,5 @@
-from self.database import DBConnection
-from self.api import APIConnection
+from database import DBConnection
+from api import APIConnection
 
 import json
 from timeit import default_timer as timer
@@ -22,7 +22,7 @@ class Scraper():
             
             for each in players:
                 puuid = each['puuid']
-                print(f"Getting matches for player {each['gameName']} with id: {puuid}")
+                print(f"Getting matches for player {each['gameName' ]} with id: {puuid}")
                 matches = self.api.get_player_matches(puuid)
                 self.match_list_counter += 1
                 self.check_rate_limit()
