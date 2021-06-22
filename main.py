@@ -57,24 +57,7 @@ class Scraper():
                             
                             database.insert_matches(match_data) 
             time.sleep(600)
-            # players_count = len(database.get_players())
             
-            # if players_count-len(players) < 200-match_list_counter:
-            #     offset = len(players)
-            # else:
-            #     if offset + 200 > players_count:
-            #         offset = len(players)
-            #     else:
-            #         offset += 200
-
-            #     if offset > 600:
-            #         offset = 0
-
-            #     difference = timer() - last_iteration
-            #     print(f"Rate limit reached, waiting for {difference:.0f} secs")
-            #     time.sleep(3600 - difference)
-            #     last_iteration = timer()
-            #     match_list_counter = 0
                 
 
 
@@ -87,6 +70,7 @@ class Scraper():
             print(f"Rate limit reached, waiting for {difference:.0f} secs")
             time.sleep(difference)
             self.start = timer()
+            self.hourly_clock = timer()
             self.requests = 0
             self.match_data_counter = 0 
             self.match_list_counter = 0
