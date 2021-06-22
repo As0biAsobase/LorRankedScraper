@@ -22,7 +22,7 @@ class Scraper():
             
             for each in players:
                 puuid = each['puuid']
-                print(f"Getting matches for player {each["gameName"]} with id: {puuid}")
+                print(f"Getting matches for player {each['gameName']} with id: {puuid}")
                 matches = self.api.get_player_matches(puuid)
                 self.match_list_counter += 1
                 self.check_rate_limit()
