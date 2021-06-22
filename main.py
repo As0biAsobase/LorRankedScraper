@@ -56,9 +56,7 @@ class Scraper():
                                     database.insert_players(player2_data)
                             
                             database.insert_matches(match_data) 
-            time.sleep(600)
-            
-                
+            time.sleep(600)          
 
 
     def check_rate_limit(self):
@@ -66,7 +64,7 @@ class Scraper():
 
         difference = timer() - self.start
         if self.match_list_counter == 200 or self.match_data_counter == 100:
-            difference = 3600 - (timer() - self.hourly_clock)
+            difference = 3660 - (timer() - self.hourly_clock)
             print(f"Rate limit reached, waiting for {difference:.0f} secs")
             time.sleep(difference)
             self.start = timer()
