@@ -12,6 +12,7 @@ class DBConnection:
 
     def get_players(self):
         result = self.client['natum-perdere']['PlayersyRiotID'].find({})
+        print(result)
         result = list(result)
 
         return result
