@@ -19,7 +19,6 @@ class Scraper():
     def start_scraping(self):
         while True:
             players = self.database.get_players() 
-            print(len(players))
             for each in players:
                 puuid = each['puuid']
                 
