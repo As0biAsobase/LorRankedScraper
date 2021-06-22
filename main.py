@@ -35,6 +35,7 @@ class Scraper():
                         self.match_data_counter += 1
                         self.check_rate_limit()
 
+                        print(f"{status_code}: got match with id {matchid}")
                         if status_code == 200:                            
                             self.database.insert_matches(match_data)        
 
