@@ -13,8 +13,8 @@ class DBConnection:
     def get_players(self):
         result = self.client['natum-perdere']['PlayersyRiotID'].find({})
         result = list(result)
-        print(result)
-        
+        test = self.client['natum-perdere']['PlayersyRiotID'].count_documents()
+        print(test)
         return result
 
     def player_exists(self, puuid):
