@@ -15,10 +15,12 @@ class Scraper():
         self.hourly_clock = timer()
         self.database = DBConnection()
         self.api = APIConnection()
+        self.player_num = None
 
     def start_scraping(self):
         while True:
             players = self.database.get_players() 
+            self.player_num = len(players)
             for each in players:
                 puuid = each['puuid']
                 
@@ -44,10 +46,11 @@ class Scraper():
         self.requests += 1
 
         difference = timer() - self.start
-        if self.match_list_counter == 200 or self.match_data_counter == 100:
+        if self.match_list_counter == 150 or self.match_data_counter == 100 or self.match_list_counter == self.player_num:
             difference = 3600 - (timer() - self.hourly_clock)
-            print(f"Rate limit reached, waiting for {difference:.0f} secs")
-            time.sleep(difference)
+            for i in range(difference):
+                print(f"Rate limit reached, waiting for {difference:.0f} secs", end='\r')
+                time.sleep()
             self.start = timer()
             self.hourly_clock = timer()
             self.requests = 0
