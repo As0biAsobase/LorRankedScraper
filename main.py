@@ -37,9 +37,14 @@ class Scraper():
                         self.match_data_counter += 1
                         self.check_rate_limit()
 
-                        print(f"{status_code}: got match with id {matchid}")
-                        if status_code == 200:                            
-                            self.database.insert_matches(match_data)        
+                        
+                        if status_code == 200: 
+                            print(f"{status_code}: got match with id {matchid}")                           
+                            self.database.insert_matches(match_data) 
+                        elif status_code == 404:
+                            print(f"{status_code}: This is a friend match(probably), we will store its id")   
+                            match_data = { "metadata" : { "match_id" : matchid } }
+                            self.database.insert_matches(match_data)
 
 
     def check_rate_limit(self):
@@ -49,7 +54,7 @@ class Scraper():
         if self.match_list_counter == 150 or self.match_data_counter == 100 or self.match_list_counter == self.player_num:
             difference = 3600 - (timer() - self.hourly_clock)
             for i in range(int(difference)+1):
-                print(f"Rate limit reached, waiting for {difference:.0f} secs", end='\r')
+                print(f"\rHourly rate limit reached, waiting for {difference:.0f} secs", end='')
                 time.sleep(1)
             self.start = timer()
             self.hourly_clock = timer()
@@ -62,7 +67,7 @@ class Scraper():
                 self.start = timer()
             else:
                 if self.requests >= 200:
-                    print(f"Rate limit reached, waiting for {difference:.0f} secs")
+                    print(f"Minutly rate limit reached, waiting for {difference:.0f} secs")
                     time.sleep(difference)
                     self.start = timer()
                     self.requests = 0
