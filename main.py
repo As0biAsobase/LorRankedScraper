@@ -56,7 +56,7 @@ class Scraper():
         if self.match_list_counter == 150 or self.match_data_counter == 100 or self.match_list_counter == self.player_num:
             difference = 3600 - (timer() - self.hourly_clock)
             for i in range(int(difference)+1):
-                print(f"\rHourly rate limit reached, waiting for {difference:.0f} secs", end='')
+                print(f"Hourly rate limit reached, waiting for {int(difference)-i} secs", end='\r')
                 time.sleep(1)
             self.start = timer()
             self.hourly_clock = timer()
