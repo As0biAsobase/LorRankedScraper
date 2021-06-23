@@ -47,6 +47,15 @@ class Scraper():
                             self.database.insert_matches(match_data)
                         else:
                             print(f"{status_code}: Could not get match for some reason") 
+            difference = 3600 - (timer() - self.hourly_clock)
+            for i in range(int(difference)+1):
+                print(f"Run out of data, waiting for {int(difference)-i} secs", end='\r')
+                time.sleep(1)
+            self.start = timer()
+            self.hourly_clock = timer()
+            self.requests = 0
+            self.match_data_counter = 0 
+            self.match_list_counter = 0
 
 
     def check_rate_limit(self):
