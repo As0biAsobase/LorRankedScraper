@@ -45,6 +45,8 @@ class Scraper():
                             print(f"{status_code}: This is a friend match(probably), we will store its id")   
                             match_data = { "metadata" : { "match_id" : matchid } }
                             self.database.insert_matches(match_data)
+                        else:
+                            print(f"{status_code}: Could not get match for some reason") 
 
 
     def check_rate_limit(self):
