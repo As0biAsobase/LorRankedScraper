@@ -8,6 +8,7 @@ class APIConnection():
         load_dotenv(find_dotenv())
         self.key = os.getenv("RIOT_API_KEY")
 
+    # Get all matches for a specific player
     def get_player_matches(self, puuid):
         headers = {
             "X-Riot-Token": self.key
@@ -26,6 +27,7 @@ class APIConnection():
 
         return content
 
+    # Get information about a specific match
     def get_match_data(self, matchid):
         headers = {
             "X-Riot-Token": self.key
@@ -44,6 +46,7 @@ class APIConnection():
 
         return [content, status_code]
 
+    # Get player data for a specific user
     def get_player_data(self, puuid):
         headers = {
             "X-Riot-Token": self.key

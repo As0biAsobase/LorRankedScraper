@@ -27,8 +27,8 @@ class Scraper():
                 print(f"Getting matches for player {each['gameName' ]} with id: {puuid}")
                 matches = self.api.get_player_matches(puuid)
                 self.match_list_counter += 1
+                # The code must adhere to hourly and minutly rate limits
                 self.check_rate_limit()
-
 
                 for matchid in matches:
                     if not self.database.match_exists(matchid):
@@ -36,19 +36,16 @@ class Scraper():
                         match_data, status_code = self.api.get_match_data(matchid)
                         self.match_data_counter += 1
                         self.check_rate_limit()
-
-                        
+         
                         if status_code == 200: 
                             print(f"{status_code}: got match with id {matchid}")                           
                             self.database.insert_matches(match_data) 
-                        elif status_code == 404:
+                        elif status_code == 404: # Matches between friends are not recorded in the API and as such return 404
                             print(f"{status_code}: This is a friend match(probably), we will store its id")   
                             match_data = { "metadata" : { "match_id" : matchid } }
                             self.database.insert_matches(match_data)
                         else:
                             print(f"{status_code}: Could not get match for some reason") 
-            
-
 
     def check_rate_limit(self):
         self.requests += 1
@@ -74,8 +71,6 @@ class Scraper():
                     time.sleep(difference)
                     self.start = timer()
                     self.requests = 0
-                
-
 
 if __name__ == "__main__":
     scraper = Scraper()
